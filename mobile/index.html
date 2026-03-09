@@ -55,18 +55,16 @@
     }
 
     .nav-logo {
-      font-family: var(--mono);
-      font-weight: 700;
-      font-size: 1.1rem;
-      letter-spacing: -0.03em;
       text-decoration: none;
       display: flex;
       align-items: center;
-      gap: 1px;
+      height: 36px;
     }
-    .nav-logo .v { color: var(--primary); }
-    .nav-logo .eza { color: var(--navy-b); }
-    .nav-logo .rest { color: var(--fg); }
+    .nav-logo img {
+      height: 32px;
+      width: auto;
+      mix-blend-mode: lighten;
+    }
 
     .hamburger {
       width: 40px; height: 40px;
@@ -199,13 +197,13 @@
       margin-bottom: 16px;
     }
     .hero h1 .accent {
-      background: linear-gradient(90deg, var(--primary) 0%, var(--primary2) 100%);
+      background: linear-gradient(160deg, #d8d8d8 0%, #8a8a8a 30%, #f0f0f0 55%, #7a7a7a 80%, #c0c0c0 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
     .hero h1 .navy-accent {
-      background: linear-gradient(90deg, var(--navy-b) 0%, #7aa3ff 100%);
+      background: linear-gradient(160deg, #b8b8b8 0%, #6e6e6e 35%, #e2e2e2 60%, #888 85%, #aaa 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -897,7 +895,7 @@
 <!-- INTRO OVERLAY -->
 <div id="intro">
   <div class="intro-logo">
-    <span class="v">V</span><span class="eza">eža</span><span class="rest"> Equipment</span>
+    <img src="../brand_assets/veza-logo.png" alt="Veža" style="height:56px;width:auto;mix-blend-mode:lighten;">
   </div>
   <div class="intro-line"></div>
   <div class="intro-sub">Industrial Equipment Specialists</div>
@@ -906,7 +904,7 @@
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">
-    <span class="v">V</span><span class="eza">eža</span><span class="rest"> Equipment</span>
+    <img src="../brand_assets/veza-logo.png" alt="Veža">
   </a>
   <button class="hamburger" id="hamburger" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -1222,7 +1220,7 @@
 <footer>
   <div class="footer-brand">
     <div class="footer-logo">
-      <span class="v">V</span><span class="eza">eža</span><span>&nbsp;Equipment</span>
+      <img src="../brand_assets/veza-logo.png" alt="Veža" style="height:40px;width:auto;mix-blend-mode:lighten;">
     </div>
     <div class="footer-tagline">Industrial equipment and spare parts for food, pharmaceutical and chemical industries.</div>
   </div>
