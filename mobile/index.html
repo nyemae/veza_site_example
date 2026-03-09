@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Veža Equipment — Industrial Equipment Specialists</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --bg:        #0a0b0d;
+      --fg:        #fafafa;
+      --card:      #111318;
+      --primary:   #e41e24;
+      --primary2:  #ff6b5e;
+      --navy:      #1b2f6f;
+      --navy-b:    #4472f5;
+      --secondary: #1f2236;
+      --muted-fg:  #9aa0b8;
+      --border:    #1e2235;
+      --font:      'Inter Tight', sans-serif;
+      --mono:      'JetBrains Mono', monospace;
+      --r:         10px;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--fg);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    * { scrollbar-width: none; -ms-overflow-style: none; }
+    ::-webkit-scrollbar { display: none; }
+    ::selection { background: var(--primary); color: #fff; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      background: rgba(10, 11, 13, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+    }
+
+    .nav-logo {
+      font-family: var(--mono);
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: -0.03em;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 1px;
+    }
+    .nav-logo .v { color: var(--primary); }
+    .nav-logo .eza { color: var(--navy-b); }
+    .nav-logo .rest { color: var(--fg); }
+
+    .hamburger {
+      width: 40px; height: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 8px;
+      border-radius: 8px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px; height: 2px;
+      background: var(--fg);
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── DRAWER ── */
+    .drawer {
+      position: fixed;
+      top: 56px; left: 0; right: 0; bottom: 0;
+      background: rgba(10, 11, 13, 0.97);
+      backdrop-filter: blur(20px);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .drawer.open { transform: translateX(0); }
+    .drawer a {
+      font-family: var(--mono);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--muted-fg);
+      text-decoration: none;
+      padding: 14px 40px;
+      width: 100%;
+      text-align: center;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .drawer a:hover { color: var(--fg); }
+    .drawer .drawer-cta {
+      margin-top: 16px;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 8px;
+      padding: 14px 32px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      width: calc(100% - 48px);
+      text-align: center;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 88px 20px 60px;
+      position: relative;
+      overflow: hidden;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero-glow-r {
+      position: absolute;
+      width: 300px; height: 300px;
+      background: radial-gradient(ellipse, rgba(228,30,36,0.18) 0%, transparent 70%);
+      top: -60px; right: -80px;
+      pointer-events: none;
+    }
+    .hero-glow-l {
+      position: absolute;
+      width: 280px; height: 280px;
+      background: radial-gradient(ellipse, rgba(68,114,245,0.12) 0%, transparent 70%);
+      bottom: 40px; left: -80px;
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(228,30,36,0.08);
+      border: 1px solid rgba(228,30,36,0.25);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary2);
+      margin-bottom: 20px;
+      width: fit-content;
+    }
+    .hero-badge .dot {
+      width: 6px; height: 6px;
+      background: var(--primary);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.7); }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 11vw, 3rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      margin-bottom: 16px;
+    }
+    .hero h1 .accent {
+      background: linear-gradient(90deg, var(--primary) 0%, var(--primary2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero h1 .navy-accent {
+      background: linear-gradient(90deg, var(--navy-b) 0%, #7aa3ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--muted-fg);
+      margin-bottom: 28px;
+      max-width: 340px;
+    }
+
+    .hero-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+    .btn-primary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 10px;
+      padding: 15px 24px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      min-height: 52px;
+    }
+    .btn-primary:active { transform: scale(0.97); background: #c41920; }
+    .btn-secondary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--fg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 15px 24px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.15s;
+      min-height: 52px;
+    }
+    .btn-secondary:active { transform: scale(0.97); border-color: var(--muted-fg); }
+
+    /* ── HERO SLIDER (mobile) ── */
+    .hero-slider {
+      position: relative;
+      width: 100%;
+      border-radius: 14px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: var(--card);
+      border: 1px solid var(--border);
+      margin-bottom: 32px;
+    }
+    .hero-slider .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.7s ease;
+    }
+    .hero-slider .slide.active { opacity: 1; }
+    .hero-slider img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .slider-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+    }
+    .slider-caption {
+      position: absolute;
+      bottom: 14px;
+      left: 16px;
+      right: 16px;
+    }
+    .slide-brand {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--primary2);
+      margin-bottom: 3px;
+    }
+    .slide-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .slider-dots {
+      position: absolute;
+      bottom: 14px;
+      right: 16px;
+      display: flex;
+      gap: 5px;
+    }
+    .slider-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.2s;
+    }
+    .slider-dot.active { background: var(--primary); width: 18px; border-radius: 3px; }
+
+    /* ── METRICS ── */
+    .metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .metric-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 16px;
+    }
+    .metric-num {
+      font-family: var(--mono);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--fg);
+      margin-bottom: 3px;
+    }
+    .metric-num span { color: var(--primary); }
+    .metric-label {
+      font-size: 0.72rem;
+      color: var(--muted-fg);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── SECTION WRAPPER ── */
+    section {
+      padding: 60px 20px;
+    }
+
+    .section-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 20px; height: 1px;
+      background: var(--primary);
+    }
+
+    .section-title {
+      font-size: clamp(1.6rem, 7vw, 2rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+    .section-sub {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: var(--muted-fg);
+      margin-bottom: 32px;
+    }
+
+    /* ── MARQUEE ── */
+    .marquee-section {
+      padding: 24px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+      background: var(--card);
+    }
+    .marquee-track {
+      display: flex;
+      gap: 0;
+      animation: marquee 20s linear infinite;
+      width: max-content;
+    }
+    .marquee-track:hover { animation-play-state: paused; }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    .marquee-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 0 24px;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted-fg);
+      white-space: nowrap;
+    }
+    .marquee-item .sep {
+      width: 3px; height: 3px;
+      background: var(--primary);
+      border-radius: 50%;
+      opacity: 0.6;
+    }
+
+    /* ── CAPABILITIES ── */
+    .caps-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .cap-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cap-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .cap-card:active::before { opacity: 1; }
+    .cap-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: rgba(228,30,36,0.1);
+      border: 1px solid rgba(228,30,36,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+    }
+    .cap-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+    .cap-desc {
+      font-size: 0.72rem;
+      line-height: 1.55;
+      color: var(--muted-fg);
+    }
+
+    /* ── PORTFOLIO ── */
+    .portfolio-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .port-card {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--card);
+      text-decoration: none;
+      color: var(--fg);
+      display: block;
+    }
+    .port-img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      position: relative;
+      overflow: hidden;
+    }
+    .port-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .port-img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 60%);
+    }
+    .port-body {
+      padding: 16px;
+    }
+    .port-tag {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+    .port-name {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+    .port-desc {
+      font-size: 0.78rem;
+      color: var(--muted-fg);
+      line-height: 1.5;
+    }
+
+    /* ── STATS ── */
+    .stats-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px 20px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .stat-num {
+      font-family: var(--mono);
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      white-space: nowrap;
+    }
+    .stat-num span { color: var(--primary); }
+    .stat-info { flex: 1; }
+    .stat-label {
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+    .stat-sub {
+      font-size: 0.75rem;
+      color: var(--muted-fg);
+      line-height: 1.5;
+    }
+
+    /* ── MANUFACTURERS ── */
+    .mfr-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .mfr-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 8px;
+      text-align: center;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted-fg);
+    }
+
+    /* ── TESTIMONIAL ── */
+    .testimonial-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .testimonial-card::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 180px; height: 180px;
+      background: radial-gradient(ellipse, rgba(68,114,245,0.12) 0%, transparent 70%);
+    }
+    .stars {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 16px;
+    }
+    .star {
+      width: 14px; height: 14px;
+      background: #f59e0b;
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    }
+    .testimonial-quote {
+      font-size: 0.92rem;
+      line-height: 1.7;
+      color: var(--fg);
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .author-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--navy) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .author-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .author-title {
+      font-size: 0.72rem;
+      color: var(--muted-fg);
+    }
+
+    /* ── CTA / CONTACT ── */
+    .contact-section {
+      background: linear-gradient(135deg, var(--secondary) 0%, #0e1220 100%);
+      border-radius: 20px;
+      padding: 36px 24px;
+      margin: 0 20px;
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-section::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 250px; height: 250px;
+      background: radial-gradient(ellipse, rgba(228,30,36,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .contact-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+    .contact-title {
+      font-size: clamp(1.5rem, 7vw, 1.9rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 10px;
+    }
+    .contact-sub {
+      font-size: 0.85rem;
+      color: var(--muted-fg);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .contact-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .btn-phone {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 10px;
+      padding: 16px 20px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      min-height: 56px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-phone:active { transform: scale(0.97); background: #c41920; }
+    .btn-email {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: transparent;
+      color: var(--fg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 20px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      min-height: 56px;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .btn-email:active { transform: scale(0.97); border-color: var(--navy-b); }
+    .contact-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .contact-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: var(--muted-fg);
+    }
+    .contact-meta-item .icon {
+      width: 28px; height: 28px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 48px 20px 32px;
+      border-top: 1px solid var(--border);
+    }
+    .footer-brand {
+      margin-bottom: 28px;
+    }
+    .footer-logo {
+      font-family: var(--mono);
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 1px;
+    }
+    .footer-logo .v { color: var(--primary); }
+    .footer-logo .eza { color: var(--navy-b); }
+    .footer-tagline {
+      font-size: 0.78rem;
+      color: var(--muted-fg);
+      line-height: 1.5;
+      max-width: 260px;
+    }
+    .footer-links {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-bottom: 32px;
+    }
+    .footer-col-title {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--fg);
+      margin-bottom: 14px;
+    }
+    .footer-col a {
+      display: block;
+      font-size: 0.82rem;
+      color: var(--muted-fg);
+      text-decoration: none;
+      padding: 5px 0;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--fg); }
+    .footer-socials {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .social-btn {
+      width: 40px; height: 40px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s;
+    }
+    .social-btn:hover { border-color: var(--muted-fg); }
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+      font-size: 0.75rem;
+      color: var(--muted-fg);
+    }
+
+    /* ── REVEAL ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── INTRO OVERLAY ── */
+    #intro {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 12px;
+    }
+    #intro .intro-logo {
+      font-family: var(--mono);
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      opacity: 0;
+      transform: scale(0.9);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    #intro .intro-logo .v { color: var(--primary); }
+    #intro .intro-logo .eza { color: var(--navy-b); }
+    #intro .intro-logo .rest { color: var(--fg); }
+    #intro .intro-line {
+      width: 0;
+      height: 1px;
+      background: var(--border);
+      transition: width 0.6s ease 0.4s;
+    }
+    #intro .intro-sub {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted-fg);
+      opacity: 0;
+      transition: opacity 0.4s ease 0.7s;
+    }
+    #intro.shown .intro-logo { opacity: 1; transform: scale(1); }
+    #intro.shown .intro-line { width: 120px; }
+    #intro.shown .intro-sub { opacity: 1; }
+    #intro.hiding {
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+  </style>
+</head>
+<body>
+
+<!-- INTRO OVERLAY -->
+<div id="intro">
+  <div class="intro-logo">
+    <span class="v">V</span><span class="eza">eža</span><span class="rest"> Equipment</span>
+  </div>
+  <div class="intro-line"></div>
+  <div class="intro-sub">Industrial Equipment Specialists</div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <span class="v">V</span><span class="eza">eža</span><span class="rest"> Equipment</span>
+  </a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- DRAWER -->
+<div class="drawer" id="drawer">
+  <a href="#capabilities" onclick="closeDrawer()">Capabilities</a>
+  <a href="#portfolio" onclick="closeDrawer()">Portfolio</a>
+  <a href="#manufacturers" onclick="closeDrawer()">Manufacturers</a>
+  <a href="#contact" onclick="closeDrawer()">Contact</a>
+  <a href="tel:+37052080500" class="drawer-cta">+370 520 80 500</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow-r"></div>
+  <div class="hero-glow-l"></div>
+
+  <div class="hero-badge reveal">
+    <span class="dot"></span>
+    Industrial Equipment
+  </div>
+
+  <h1 class="reveal" style="transition-delay:0.1s">
+    Industrial<br>
+    <span class="accent">Precision</span><br>
+    <span class="navy-accent">Delivered</span>
+  </h1>
+
+  <p class="hero-sub reveal" style="transition-delay:0.2s">
+    Valves, pumps, filtration and hygienic systems from world-class manufacturers — for food, pharma, and chemical industries.
+  </p>
+
+  <!-- Product Slider -->
+  <div class="hero-slider reveal" style="transition-delay:0.25s">
+    <div class="slide active">
+      <img src="../veza-images/new_0.webp" alt="Bardiani — Hygienic Valves">
+      <div class="slider-overlay"></div>
+      <div class="slider-caption">
+        <div class="slide-brand" id="m-slide-brand">BARDIANI</div>
+        <div class="slide-title" id="m-slide-title">Hygienic Butterfly Valves</div>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="../veza-images/new_1.webp" alt="Miyawaki — Steam">
+      <div class="slider-overlay"></div>
+    </div>
+    <div class="slide">
+      <img src="../veza-images/new_2.webp" alt="CSF Inox — Fluid Dynamics">
+      <div class="slider-overlay"></div>
+    </div>
+    <div class="slide">
+      <img src="../veza-images/new_3.webp" alt="Ultrafilter — Air Purity">
+      <div class="slider-overlay"></div>
+    </div>
+    <div class="slider-dots" id="m-dots">
+      <button class="slider-dot active" onclick="mGoTo(0)"></button>
+      <button class="slider-dot" onclick="mGoTo(1)"></button>
+      <button class="slider-dot" onclick="mGoTo(2)"></button>
+      <button class="slider-dot" onclick="mGoTo(3)"></button>
+    </div>
+  </div>
+
+  <div class="hero-btns reveal" style="transition-delay:0.3s">
+    <a href="tel:+37052080500" class="btn-primary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.11 1.18 2 2 0 012.11 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l.45-.45a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      Call Us Now
+    </a>
+    <a href="mailto:info@veza-e.lt" class="btn-secondary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+      Send Inquiry
+    </a>
+  </div>
+
+  <div class="metrics reveal" style="transition-delay:0.35s">
+    <div class="metric-card">
+      <div class="metric-num">10<span>+</span></div>
+      <div class="metric-label">Years Experience</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-num">300<span>+</span></div>
+      <div class="metric-label">Active Clients</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-num">94k<span>+</span></div>
+      <div class="metric-label">Parts Supplied</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-num">18<span>+</span></div>
+      <div class="metric-label">Brands</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <div class="marquee-item"><span>Bardiani</span><span class="sep"></span></div>
+    <div class="marquee-item"><span>Miyawaki</span><span class="sep"></span></div>
+    <div class="marquee-item"><span>CSF Inox</span><span class="sep"></span></div>
+    <div class="marquee-item"><span>Ultrafilter</span><span class="sep"></span></div>
+    <div class="marquee-item"><span>Alfa Laval</span><span class="sep"></span></div>
+    <div class="marquee-item"><span>SPX Flow</span><span class="sep"></span></div>
+    <div class="marquee-item"><span>Bürkert</span><span class="sep"></span></div>
+    <div class="marquee-item"><span>Spirax Sarco</span><span class="sep"></span></div>
+    <div class="marquee-item"><span>Endress+Hauser</span><span class="sep"></span></div>
+    <div class="marquee-item"><span>Bardiani</span><span class="sep"></span></div>
+    <div class="marquee-item"><span>Miyawaki</span><span class="sep"></span></div>
+    <div class="marquee-item"><span>CSF Inox</span><span class="sep"></span></div>
+    <div class="marquee-item"><span>Ultrafilter</span><span class="sep"></span></div>
+    <div class="marquee-item"><span>Alfa Laval</span><span class="sep"></span></div>
+    <div class="marquee-item"><span>SPX Flow</span><span class="sep"></span></div>
+    <div class="marquee-item"><span>Bürkert</span><span class="sep"></span></div>
+    <div class="marquee-item"><span>Spirax Sarco</span><span class="sep"></span></div>
+    <div class="marquee-item"><span>Endress+Hauser</span><span class="sep"></span></div>
+  </div>
+</div>
+
+<!-- CAPABILITIES -->
+<section id="capabilities">
+  <div class="section-eyebrow reveal">What We Offer</div>
+  <h2 class="section-title reveal" style="transition-delay:0.1s">Core Capabilities</h2>
+  <p class="section-sub reveal" style="transition-delay:0.15s">
+    Comprehensive solutions for demanding industrial environments.
+  </p>
+  <div class="caps-grid">
+    <div class="cap-card reveal" style="transition-delay:0.1s">
+      <div class="cap-icon">🔧</div>
+      <div class="cap-title">Valves & Flow Control</div>
+      <div class="cap-desc">Butterfly, ball, and check valves for precise flow management.</div>
+    </div>
+    <div class="cap-card reveal" style="transition-delay:0.15s">
+      <div class="cap-icon">💨</div>
+      <div class="cap-title">Filtration & Steam</div>
+      <div class="cap-desc">Steam traps, separators, and industrial filtration systems.</div>
+    </div>
+    <div class="cap-card reveal" style="transition-delay:0.2s">
+      <div class="cap-icon">⚙️</div>
+      <div class="cap-title">Pumps & Heat Exchange</div>
+      <div class="cap-desc">Centrifugal and sanitary pumps, plate heat exchangers.</div>
+    </div>
+    <div class="cap-card reveal" style="transition-delay:0.25s">
+      <div class="cap-icon">📏</div>
+      <div class="cap-title">Hygienic & Measurement</div>
+      <div class="cap-desc">CIP/SIP equipment and precision instrumentation.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio" style="padding-top:0">
+  <div class="section-eyebrow reveal">Selected Work</div>
+  <h2 class="section-title reveal" style="transition-delay:0.1s">Featured Projects</h2>
+  <p class="section-sub reveal" style="transition-delay:0.15s">
+    Trusted by industry leaders across Europe.
+  </p>
+  <div class="portfolio-list">
+    <div class="port-card reveal" style="transition-delay:0.1s">
+      <div class="port-img">
+        <img src="../veza-images/valves2.webp" alt="Bardiani">
+        <div class="port-img-overlay"></div>
+      </div>
+      <div class="port-body">
+        <div class="port-tag">Bardiani</div>
+        <div class="port-name">Hygienic Systems</div>
+        <div class="port-desc">Full-range butterfly and seat valves for dairy and beverage processing.</div>
+      </div>
+    </div>
+    <div class="port-card reveal" style="transition-delay:0.15s">
+      <div class="port-img">
+        <img src="../veza-images/hygiene.webp" alt="Miyawaki">
+        <div class="port-img-overlay"></div>
+      </div>
+      <div class="port-body">
+        <div class="port-tag">Miyawaki</div>
+        <div class="port-name">Steam Mastery</div>
+        <div class="port-desc">Steam traps and control systems for pharmaceutical production lines.</div>
+      </div>
+    </div>
+    <div class="port-card reveal" style="transition-delay:0.2s">
+      <div class="port-img">
+        <img src="../veza-images/seals.webp" alt="CSF Inox">
+        <div class="port-img-overlay"></div>
+      </div>
+      <div class="port-body">
+        <div class="port-tag">CSF Inox</div>
+        <div class="port-name">Fluid Dynamics</div>
+        <div class="port-desc">Centrifugal pumps and flow components for chemical plants.</div>
+      </div>
+    </div>
+    <div class="port-card reveal" style="transition-delay:0.25s">
+      <div class="port-img">
+        <img src="../veza-images/pneu.webp" alt="Ultrafilter">
+        <div class="port-img-overlay"></div>
+      </div>
+      <div class="port-body">
+        <div class="port-tag">Ultrafilter</div>
+        <div class="port-name">Air Purity</div>
+        <div class="port-desc">Compressed air filtration systems for critical processes.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section style="padding-top:0">
+  <div class="section-eyebrow reveal">Impact At Scale</div>
+  <h2 class="section-title reveal" style="transition-delay:0.1s">Numbers That Matter</h2>
+  <div class="stats-list" style="margin-top:24px">
+    <div class="stat-card reveal" style="transition-delay:0.1s">
+      <div class="stat-num">94k<span>+</span></div>
+      <div class="stat-info">
+        <div class="stat-label">Parts Supplied</div>
+        <div class="stat-sub">Across all product categories since founding</div>
+      </div>
+    </div>
+    <div class="stat-card reveal" style="transition-delay:0.15s">
+      <div class="stat-num">300<span>+</span></div>
+      <div class="stat-info">
+        <div class="stat-label">Active Clients</div>
+        <div class="stat-sub">Food, pharma and chemical companies served</div>
+      </div>
+    </div>
+    <div class="stat-card reveal" style="transition-delay:0.2s">
+      <div class="stat-num" style="font-size:1.5rem">$2.65B</div>
+      <div class="stat-info">
+        <div class="stat-label">Combined Output</div>
+        <div class="stat-sub">Annual revenue of our manufacturing partners</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MANUFACTURERS -->
+<section id="manufacturers" style="padding-top:0">
+  <div class="section-eyebrow reveal">Our Partners</div>
+  <h2 class="section-title reveal" style="transition-delay:0.1s">18+ Trusted Brands</h2>
+  <p class="section-sub reveal" style="transition-delay:0.15s">
+    We work only with verified, world-class manufacturers.
+  </p>
+  <div class="mfr-grid">
+    <div class="mfr-card reveal" style="transition-delay:0.05s">Bardiani</div>
+    <div class="mfr-card reveal" style="transition-delay:0.1s">Miyawaki</div>
+    <div class="mfr-card reveal" style="transition-delay:0.12s">CSF Inox</div>
+    <div class="mfr-card reveal" style="transition-delay:0.14s">Ultrafilter</div>
+    <div class="mfr-card reveal" style="transition-delay:0.16s">Alfa Laval</div>
+    <div class="mfr-card reveal" style="transition-delay:0.18s">SPX Flow</div>
+    <div class="mfr-card reveal" style="transition-delay:0.2s">Bürkert</div>
+    <div class="mfr-card reveal" style="transition-delay:0.22s">Spirax Sarco</div>
+    <div class="mfr-card reveal" style="transition-delay:0.24s">Endress+Hauser</div>
+    <div class="mfr-card reveal" style="transition-delay:0.26s">Inoxpa</div>
+    <div class="mfr-card reveal" style="transition-delay:0.28s">GEA</div>
+    <div class="mfr-card reveal" style="transition-delay:0.3s">Grundfos</div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section style="padding-top:0">
+  <div class="testimonial-card reveal">
+    <div class="stars">
+      <div class="star"></div><div class="star"></div><div class="star"></div>
+      <div class="star"></div><div class="star"></div>
+    </div>
+    <p class="testimonial-quote">
+      "Veža Equipment has been our go-to supplier for hygienic valves and instrumentation for over 5 years. Fast delivery, genuine parts, and expert technical support every time."
+    </p>
+    <div class="testimonial-author">
+      <div class="author-avatar">JK</div>
+      <div>
+        <div class="author-name">Jonas Kazlauskas</div>
+        <div class="author-title">Production Manager · Baltic Dairy Group</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div id="contact" style="padding-bottom:60px">
+  <div class="contact-section reveal">
+    <div class="contact-label">Get In Touch</div>
+    <h2 class="contact-title">Need Industrial Equipment?</h2>
+    <p class="contact-sub">Our specialists are ready to help you find the right solution for your process.</p>
+    <div class="contact-btns">
+      <a href="tel:+37052080500" class="btn-phone">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.11 1.18 2 2 0 012.11 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l.45-.45a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        +370 520 80 500
+      </a>
+      <a href="mailto:info@veza-e.lt" class="btn-email">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+        info@veza-e.lt
+      </a>
+    </div>
+    <div class="contact-meta">
+      <div class="contact-meta-item">
+        <div class="icon">🕐</div>
+        <span>Mon–Fri 8:00–17:00 (EET)</span>
+      </div>
+      <div class="contact-meta-item">
+        <div class="icon">📍</div>
+        <span>Vilnius, Lithuania</span>
+      </div>
+      <div class="contact-meta-item">
+        <div class="icon">🌍</div>
+        <span>Serving the Baltic Region & EU</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <div class="footer-logo">
+      <span class="v">V</span><span class="eza">eža</span><span>&nbsp;Equipment</span>
+    </div>
+    <div class="footer-tagline">Industrial equipment and spare parts for food, pharmaceutical and chemical industries.</div>
+  </div>
+
+  <div class="footer-links">
+    <div class="footer-col">
+      <div class="footer-col-title">Company</div>
+      <a href="#capabilities">Capabilities</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#manufacturers">Manufacturers</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Legal</div>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Use</a>
+      <a href="#">Cookie Policy</a>
+    </div>
+  </div>
+
+  <div class="footer-socials">
+    <a class="social-btn" href="https://wa.me/37052080500" aria-label="WhatsApp">💬</a>
+    <a class="social-btn" href="https://www.linkedin.com/company/veza-equipment" aria-label="LinkedIn">in</a>
+    <a class="social-btn" href="https://www.facebook.com/veza.equipment" aria-label="Facebook">f</a>
+  </div>
+
+  <div class="footer-bottom">
+    © 2025 Veža Equipment UAB. All rights reserved.
+  </div>
+</footer>
+
+<script>
+  // ── INTRO ──
+  const intro = document.getElementById('intro');
+  requestAnimationFrame(() => {
+    intro.classList.add('shown');
+    setTimeout(() => {
+      intro.classList.add('hiding');
+      setTimeout(() => intro.remove(), 500);
+    }, 1800);
+  });
+
+  // ── HAMBURGER / DRAWER ──
+  const hamburger = document.getElementById('hamburger');
+  const drawer = document.getElementById('drawer');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    drawer.classList.toggle('open');
+    document.body.style.overflow = drawer.classList.contains('open') ? 'hidden' : '';
+  });
+  function closeDrawer() {
+    hamburger.classList.remove('open');
+    drawer.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // ── MOBILE SLIDER ──
+  const mSlides = document.querySelectorAll('.hero-slider .slide');
+  const mDots = document.querySelectorAll('#m-dots .slider-dot');
+  const mBrands = ['BARDIANI', 'MIYAWAKI', 'CSF INOX', 'ULTRAFILTER'];
+  const mTitles = ['Hygienic Butterfly Valves', 'Steam Trap Systems', 'Centrifugal Pumps', 'Compressed Air Filters'];
+  let mCurrent = 0;
+  let mTimer;
+
+  function mGoTo(idx) {
+    mSlides[mCurrent].classList.remove('active');
+    mDots[mCurrent].classList.remove('active');
+    mCurrent = idx;
+    mSlides[mCurrent].classList.add('active');
+    mDots[mCurrent].classList.add('active');
+    document.getElementById('m-slide-brand').textContent = mBrands[mCurrent];
+    document.getElementById('m-slide-title').textContent = mTitles[mCurrent];
+    clearInterval(mTimer);
+    mTimer = setInterval(() => mGoTo((mCurrent + 1) % mSlides.length), 4800);
+  }
+
+  mTimer = setInterval(() => mGoTo((mCurrent + 1) % mSlides.length), 4800);
+
+  // ── REVEAL ON SCROLL ──
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.06 });
+  revealEls.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
